@@ -1,0 +1,20 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Algorithm Detail{% endblock %}
+
+{% block content %}
+    <h2>Topic: {{ card.topic }}</h2>
+
+    <div style="border: 2px solid #333; padding: 20px; max-width: 400px; margin-top: 20px">
+        <h3>Case:</h3>
+        <p style="font-size: 1.5em;">{{ card.question }}</p>
+
+        <hr>
+
+        <h3>Algorithm:</h3>
+        <p style="font-size: 1.2em; color: green; font-family: monospace;">{{ card.answer }}</p>
+    </div>
+
+    <br>
+    <a href="{% url 'home' %}">&larr; Back to all algorithms</a>
+{% endblock %}

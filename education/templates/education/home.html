@@ -8,7 +8,7 @@
         {% for card in cards %}
             <li>
                 <strong>{{ card.topic }}:</strong> {{ card.question }}
-                <a href="#">(View Detail)</a>
+                <a href="{% url 'card_detail' card.pk %}">(View Detail)</a>
             </li>
         {% empty %}
             <li>No cards yet. Add some in the admin!</li>

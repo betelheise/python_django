@@ -21,4 +21,5 @@ from education import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('card/<int:pk>', views.card_detail, name='card_detail'),
 ]
