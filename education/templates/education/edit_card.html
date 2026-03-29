@@ -5,7 +5,7 @@
 {% block content %}
     <h2>Edit Algorithm: {{ card.topic }}</h2>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" style="padding: 5px 15px; cursor: pointer; background-color: #f0ad4e;">Save Changes</button>

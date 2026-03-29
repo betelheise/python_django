@@ -5,8 +5,7 @@
 {% block content %}
     <h2>Add a New Algorithm</h2>
 
-    <!-- turns out POST is needed for form to send data -->
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         <!-- to render the form neatly-->

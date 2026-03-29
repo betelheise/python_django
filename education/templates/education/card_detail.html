@@ -11,6 +11,13 @@
 
         <hr>
 
+        {% if card.image %}
+            <img src="{{ card.image.url }}" alt="Cube Case for {{ card.topic }}" style="max-width: 150px;
+            display: block; margin-bottom: 10px;">
+        {% endif %}
+
+        <p style="font-size: 1.5em;">{{ card.question }}</p>
+
         <h3>Algorithm:</h3>
         <p style="font-size: 1.2em; color: green; font-family: monospace;">{{ card.answer }}</p>
     </div>
