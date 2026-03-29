@@ -16,5 +16,9 @@
     </div>
 
     <br>
+    <a href="{% url 'edit_card' card.pk %}" style="display: inline-block; padding: 5px 10px; background:
+     #ddd; text-decoration: none; color: black; border: 1px solid #999;">Edit Algorithm</a>
+
+    <br><br>
     <a href="{% url 'home' %}">&larr; Back to all algorithms</a>
 {% endblock %}

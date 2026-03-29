@@ -1,0 +1,16 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Edit Algorithm{% endblock %}
+
+{% block content %}
+    <h2>Edit Algorithm: {{ card.topic }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="padding: 5px 15px; cursor: pointer; background-color: #f0ad4e;">Save Changes</button>
+    </form>
+
+    <br>
+    <a href="{% url 'card_detail' card.pk %}">Cancel</a>
+{% endblock %}

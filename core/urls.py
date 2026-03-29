@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('card/<int:pk>', views.card_detail, name='card_detail'),
     path('add/', views.add_card, name='add_card'),
+    path('card/<int:pk>/edit/', views.edit_card, name='edit_card'),
 ]
