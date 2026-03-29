@@ -1,0 +1,20 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Add New Algorithm{% endblock %}
+
+{% block content %}
+    <h2>Add a New Algorithm</h2>
+
+    <!-- turns out POST is needed for form to send data -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- to render the form neatly-->
+        {{ form.as_p }}
+
+        <button type="submit" style="padding: 5px 15px; cursor: pointer;">Save Algorithm</button>
+    </form>
+
+    <br>
+    <a href="{% url 'home' %}">Cancel</a>
+{% endblock %}
