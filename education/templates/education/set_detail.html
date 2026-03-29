@@ -1,0 +1,30 @@
+{% extends 'education/base.html' %}
+{% block title %}{{ alg_set.name }} Algorithms{% endblock %}
+
+{% block content %}
+    <h2>Set: {{ alg_set.name }}</h2>
+    {% if alg_set.description %}
+        <p>{{ alg_set.description }}</p>
+    {% endif %}
+
+    <hr>
+
+    <ul>
+        {% for card in cards %}
+            <li>
+                {% if card.image %}
+                    <img src="{{ card.image.url }}" alt="Cube Case" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
+                {% endif %}
+                <br>
+                <strong>Case:</strong> {{ card.question }}
+                <br>
+                <a href="{% url 'card_detail' card.pk %}">(View Detail)</a>
+            </li>
+        {% empty %}
+            <li>No algorithms in this set yet.</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="{% url 'home' %}">&larr; Back to Home</a>
+{% endblock %}

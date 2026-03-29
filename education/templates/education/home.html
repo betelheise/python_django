@@ -1,17 +1,31 @@
 {% extends 'education/base.html' %}
-
 {% block title %}My Flashcards{% endblock %}
 
 {% block content %}
-    <h1>All Educational Cards</h1>
+    <h2>Algorithm Sets</h2>
+    <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+        {% for set in alg_sets %}
+            <!-- a button for each group -->
+            <a href="{% url 'set_detail' set.pk %}" style="padding: 10px; background: #3498db; color: white;
+             text-decoration: none; border-radius: 5px;">{{ set.name }}</a>
+        {% endfor %}
+    </div>
+
+    <h2>All Algorithms</h2>
     <ul>
         {% for card in cards %}
             <li>
-                <strong>{{ card.topic }}:</strong> {{ card.question }}
+                <!-- image display on home page -->
+                {% if card.image %}
+                    <img src="{{ card.image.url }}" alt="Cube Case" style="width: 100px; height: 100px;
+                     object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
+                {% endif %}
+                <br>
+                <strong>{{ card.alg_set.name }}:</strong> {{ card.question }}
                 <a href="{% url 'card_detail' card.pk %}">(View Detail)</a>
             </li>
         {% empty %}
-            <li>No cards yet. Add some in the admin!</li>
+            <li>No algs yet. Add some!</li>
         {% endfor %}
     </ul>
 {% endblock %}

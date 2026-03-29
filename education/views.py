@@ -1,12 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Flashcard
+from .models import Flashcard, AlgSet
 from .forms import FlashcardForm
 
 def home(request):
+    # Fetch all algorithm sets to display on the homepage
+    alg_sets = AlgSet.objects.all()
     # Fetch all cards from the database
     cards = Flashcard.objects.all()
     # Send them to the template
-    return render(request, 'education/home.html', {'cards': cards})
+    return render(request, 'education/home.html', {'alg_sets': alg_sets, 'cards': cards})
+
+def set_detail(request, pk):
+    # Get the specific group (e.g., EG-1)
+    alg_set = get_object_or_404(AlgSet, pk=pk)
+    # Get ONLY the cards that belong to this group
+    cards = Flashcard.objects.filter(alg_set=alg_set)
+    return render(request, 'education/set_detail.html', {'alg_set': alg_set, 'cards': cards})
 
 def card_detail(request, pk):
     # gets one card by its id or gives error 404
