@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EduApp - {% block title %}Home{% endblock %}</title>
+    <!-- We'll add CSS links here later -->
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/add/">Add Card</a>
+    </nav>
+    <hr>
+
+    {% block content %}
+    <!-- This is where specific page content will go -->
+    {% endblock %}
+
+    <hr>
+    <footer>Arch Django Project 2026</footer>
+</body>
+</html>

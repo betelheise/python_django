@@ -1,0 +1,17 @@
+{% extends 'education/base.html' %}
+
+{% block title %}My Flashcards{% endblock %}
+
+{% block content %}
+    <h1>All Educational Cards</h1>
+    <ul>
+        {% for card in cards %}
+            <li>
+                <strong>{{ card.topic }}:</strong> {{ card.question }}
+                <a href="#">(View Detail)</a>
+            </li>
+        {% empty %}
+            <li>No cards yet. Add some in the admin!</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
