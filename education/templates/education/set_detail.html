@@ -2,29 +2,73 @@
 {% block title %}{{ alg_set.name }} Algorithms{% endblock %}
 
 {% block content %}
-    <h2>Set: {{ alg_set.name }}</h2>
+    <!-- Header with Edit Button -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h2 style="margin: 0;">Set: {{ alg_set.name }}</h2>
+        <a href="{% url 'edit_set' alg_set.pk %}" style="padding: 6px 12px; background: #e0e0e0; color: #333;
+         text-decoration: none; border-radius: 4px; font-size: 0.9em; font-weight: bold;">Edit Group ⚙️</a>
+    </div>
+
     {% if alg_set.description %}
-        <p>{{ alg_set.description }}</p>
+        <p style="color: #555; margin-top: 0; margin-bottom: 20px;">{{ alg_set.description }}</p>
     {% endif %}
 
-    <hr>
+    <!-- The Toolbar -->
+    <div class="controls-toolbar">
+        <div>
+            <strong>Sort:</strong>
+            <a href="?sort=newest&layout={{ layout }}" class="{% if current_sort == 'newest' %}active{% endif %}">Newest</a>
+            <a href="?sort=name&layout={{ layout }}" class="{% if current_sort == 'name' %}active{% endif %}">Name (A-Z)</a>
+        </div>
+        <div>
+            <strong>Layout:</strong>
+            <a href="?sort={{ current_sort }}&layout=list" class="{% if layout == 'list' %}active{% endif %}">List ☰</a>
+            <a href="?sort={{ current_sort }}&layout=grid" class="{% if layout == 'grid' %}active{% endif %}">Grid ⊞</a>
+        </div>
+    </div>
 
-    <ul>
+    <!-- The Algorithms (Changes based on layout variable) -->
+    <div class="{% if layout == 'grid' %}alg-grid{% else %}alg-list{% endif %}">
+
         {% for card in cards %}
-            <li>
-                {% if card.image %}
-                    <img src="{{ card.image.url }}" alt="Cube Case" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-                {% endif %}
-                <br>
-                <strong>Case:</strong> {{ card.question }}
-                <br>
-                <a href="{% url 'card_detail' card.pk %}">(View Detail)</a>
-            </li>
-        {% empty %}
-            <li>No algorithms in this set yet.</li>
-        {% endfor %}
-    </ul>
+            <div class="{% if layout == 'grid' %}alg-card-grid{% else %}alg-card-list{% endif %}">
 
-    <br>
-    <a href="{% url 'home' %}">&larr; Back to Home</a>
+                <!-- The Image Box -->
+                {% if card.image %}
+                    <img src="{{ card.image.url }}" alt="{{ card.name }}">
+                {% else %}
+                    <div class="placeholder-img">🧊</div>
+                {% endif %}
+
+                <!-- The Text Box -->
+                <div class="card-content" style="min-width: 0;">
+
+                    <!-- 1. Case Name -->
+                    <h3 class="one-line-text" style="margin: 0 0 5px 0;" title="{{ card.name }}">{{ card.name }}</h3>
+
+                    <!-- 2. Scramble (Question) -->
+                    <p class="one-line-text" style="color: #666; font-size: 0.85em; margin: 0 0 5px 0;"
+                       title="{{ card.question }}">
+                        {{ card.question|linebreaksbr }}
+                    </p>
+
+                    <!-- 3. Algorithm Solution (Answer) -->
+                    <p class="multi-line-text" style="color: #27ae60; font-family: monospace; font-size: 0.9em;
+                     font-weight: bold; margin: 0 0 10px 0;" title="{{ card.answer }}">
+                        {{ card.answer|linebreaksbr }}
+                    </p>
+
+                    <a href="{% url 'card_detail' card.pk %}" style="text-decoration: none; color: #3498db;
+                     font-weight: bold;">View Case &rarr;</a>
+                </div>
+
+            </div>
+        {% empty %}
+            <p>No algorithms in this set yet. Click "Add Algorithm" above!</p>
+        {% endfor %}
+
+    </div>
+
+    <br><br>
+    <a href="{% url 'home' %}">&larr; Back to Groups</a>
 {% endblock %}

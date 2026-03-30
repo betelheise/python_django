@@ -3,23 +3,23 @@
 {% block title %}Algorithm Detail{% endblock %}
 
 {% block content %}
-    <h2>Topic: {{ card.topic }}</h2>
+    <h2 style="margin-bottom: 5px;">{{ card.name }}</h2>
+    <p style="color: #666; margin-top: 0;">Group: {{ card.alg_set.name }}</p>
 
     <div class="card-detail">
-        <h3>Case:</h3>
-        <p style="font-size: 1.5em;">{{ card.question }}</p>
-
-        <hr>
+        <h3>Scramble / Description:</h3>
 
         {% if card.image %}
             <img src="{{ card.image.url }}" alt="Cube Case for {{ card.topic }}" style="max-width: 150px;
-            display: block; margin-bottom: 10px;">
+            display: block; margin-bottom: 10px; border-radius: 8px;">
         {% endif %}
 
-        <p style="font-size: 1.5em;">{{ card.question }}</p>
+        <p style="font-size: 1.2em;">{{ card.question }}</p>
+
+        <hr>
 
         <h3>Algorithm:</h3>
-        <p style="font-size: 1.2em; color: green; font-family: monospace;">{{ card.answer }}</p>
+        <p style="font-size: 1.2em; color: green; font-family: monospace; white-space: pre-wrap">{{ card.answer }}</p>
     </div>
 
     <br>

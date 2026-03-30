@@ -11,7 +11,7 @@ A Django-based educational web application for cubers to track and learn algorit
 - [x] **Algorithm Sets (Grouping)**: Implement categories to group algorithms by type (e.g., CLL, EG-1, Square-1 CSP)
 - [x] **Set Filtering**: Allow users to filter the homepage view by specific algorithm sets
 - [x] Add group selection screen
+- [x] Add scramble for each alg
+- [x] Add sort by name feature inside each group
 ## Upcoming Features (TBD)
-- [ ] Add sort by name feature inside each group
 - [ ] Add learnt alg//learning alg/No flag flags
-- [ ] Add scramble for each alg

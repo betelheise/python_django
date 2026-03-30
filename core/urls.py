@@ -30,6 +30,8 @@ urlpatterns = [
     path('card/<int:pk>/edit/', views.edit_card, name='edit_card'),
     path('set/<int:pk>/', views.set_detail, name='set_detail'),
     path('add-group/', views.add_set, name='add_set'),
+    path('set/<int:pk>/edit/', views.edit_set, name='edit_set'),
+    path('set/<int:pk>/delete/', views.delete_set, name='delete_set'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

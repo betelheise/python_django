@@ -10,12 +10,13 @@ class AlgSet(models.Model):
         return self.name
 
 class Flashcard(models.Model):
-    alg_set = models.ForeignKey(AlgSet, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=100, default="Unnamed Case")
 
+    alg_set = models.ForeignKey(AlgSet, on_delete=models.CASCADE, null=True)
     question = models.CharField(max_length=255)
     answer = models.TextField()
     image = models.ImageField(upload_to='cube_cases/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.question
+        return self.anme
