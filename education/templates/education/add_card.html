@@ -7,8 +7,6 @@
 
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <!-- to render the form neatly-->
         {{ form.as_p }}
 
         <button type="submit" style="padding: 5px 15px; cursor: pointer;">Save Algorithm</button>

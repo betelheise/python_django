@@ -67,7 +67,7 @@ def card_detail(request, pk):
 
 def add_card(request):
     if request.method == 'POST':
-        form = FlashcardForm(request.POST)
+        form = FlashcardForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()     # saves to database
             return redirect('home')
@@ -82,7 +82,7 @@ def edit_card(request, pk):
 
     # if user clicks Save (POST)
     if request.method == 'POST':
-        form = FlashcardForm(request.POST, instance=card)
+        form = FlashcardForm(request.POST, request.FILES, instance=card)
         if form.is_valid():
             form.save()
             # sends back to details page to see changes
