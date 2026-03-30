@@ -10,8 +10,12 @@ class AlgSet(models.Model):
         return self.name
 
 class Flashcard(models.Model):
-    name = models.CharField(max_length=100, default="Unnamed Case")
+    status = models.IntegerField(
+        choices=[(1, 'Learning'), (2, 'Unlearnt'), (3, 'Learnt')],
+        default=2
+    )
 
+    name = models.CharField(max_length=100, default="Unnamed Case")
     alg_set = models.ForeignKey(AlgSet, on_delete=models.CASCADE, null=True)
     question = models.CharField(max_length=255)
     answer = models.TextField()
@@ -19,4 +23,5 @@ class Flashcard(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.anme
+        return self.name
+

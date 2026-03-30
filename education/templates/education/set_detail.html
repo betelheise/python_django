@@ -17,8 +17,12 @@
     <div class="controls-toolbar">
         <div>
             <strong>Sort:</strong>
-            <a href="?sort=newest&layout={{ layout }}" class="{% if current_sort == 'newest' %}active{% endif %}">Newest</a>
-            <a href="?sort=name&layout={{ layout }}" class="{% if current_sort == 'name' %}active{% endif %}">Name (A-Z)</a>
+            <a href="?sort=status&layout={{ layout }}" class="{% if current_sort == 'status' %}active
+            {% endif %}">By Status</a> <!-- NEW LINK -->
+            <a href="?sort=newest&layout={{ layout }}" class="{% if current_sort == 'newest' %}active
+            {% endif %}">Newest</a>
+            <a href="?sort=name&layout={{ layout }}" class="{% if current_sort == 'name' %}active
+            {% endif %}">Name (A-Z)</a>
         </div>
         <div>
             <strong>Layout:</strong>
@@ -31,37 +35,34 @@
     <div class="{% if layout == 'grid' %}alg-grid{% else %}alg-list{% endif %}">
 
         {% for card in cards %}
-            <div class="{% if layout == 'grid' %}alg-card-grid{% else %}alg-card-list{% endif %}">
+            <!-- Added ID and Dynamic Status Class -->
+            <div id="card-box-{{ card.pk }}" class="{% if layout == 'grid' %}alg-card-grid{% else %}alg-card-list
+            {% endif %} status-{{ card.status }}">
 
-                <!-- The Image Box -->
                 {% if card.image %}
                     <img src="{{ card.image.url }}" alt="{{ card.name }}">
                 {% else %}
                     <div class="placeholder-img">🧊</div>
                 {% endif %}
 
-                <!-- The Text Box -->
                 <div class="card-content" style="min-width: 0;">
 
-                    <!-- 1. Case Name -->
-                    <h3 class="one-line-text" style="margin: 0 0 5px 0;" title="{{ card.name }}">{{ card.name }}</h3>
+                    <button id="btn-{{ card.pk }}" class="status-btn" onclick="toggleStatus(event, {{ card.pk }})">
+                        {{ card.get_status_display }} ↺
+                    </button>
 
-                    <!-- 2. Scramble (Question) -->
+                    <h3 class="one-line-text" style="margin: 0 0 5px 0;" title="{{ card.name }}">{{ card.name }}</h3>
                     <p class="one-line-text" style="color: #666; font-size: 0.85em; margin: 0 0 5px 0;"
                        title="{{ card.question }}">
                         {{ card.question|linebreaksbr }}
                     </p>
-
-                    <!-- 3. Algorithm Solution (Answer) -->
                     <p class="multi-line-text" style="color: #27ae60; font-family: monospace; font-size: 0.9em;
                      font-weight: bold; margin: 0 0 10px 0;" title="{{ card.answer }}">
                         {{ card.answer|linebreaksbr }}
                     </p>
-
                     <a href="{% url 'card_detail' card.pk %}" style="text-decoration: none; color: #3498db;
                      font-weight: bold;">View Case &rarr;</a>
                 </div>
-
             </div>
         {% empty %}
             <p>No algorithms in this set yet. Click "Add Algorithm" above!</p>
@@ -71,4 +72,34 @@
 
     <br><br>
     <a href="{% url 'home' %}">&larr; Back to Groups</a>
+
+
+<!-- script for no-refresh clicks -->
+    <script>
+    function toggleStatus(event, cardId) {
+        event.preventDefault(); // Stop the page from refreshing
+
+        // Ask Python to change the database
+        fetch(`/card/${cardId}/toggle-status/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Get the card and button HTML elements
+            const cardDiv = document.getElementById(`card-box-${cardId}`);
+            const btn = document.getElementById(`btn-${cardId}`);
+
+            // Remove all old color classes, add the new color class
+            cardDiv.classList.remove('status-1', 'status-2', 'status-3');
+            cardDiv.classList.add('status-' + data.new_status);
+
+            // Update the button text
+            btn.innerText = data.status_name + " ↺";
+        });
+    }
+    </script>
 {% endblock %}

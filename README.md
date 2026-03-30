@@ -13,5 +13,4 @@ A Django-based educational web application for cubers to track and learn algorit
 - [x] Add group selection screen
 - [x] Add scramble for each alg
 - [x] Add sort by name feature inside each group
-## Upcoming Features (TBD)
-- [ ] Add learnt alg//learning alg/No flag flags
+- [x] Add learnt alg//learning alg/No flag flags

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Flashcard, AlgSet
 from .forms import FlashcardForm, AlgSetForm
+from django.http import JsonResponse
 
 
 def home(request):
@@ -14,16 +15,20 @@ def set_detail(request, pk):
     alg_set = get_object_or_404(AlgSet, pk=pk)
 
     # Read what the user clicked in the URL (default to 'list' and 'newest')
-    layout = request.GET.get('layout', 'list')
-    sort_by = request.GET.get('sort', 'newest')
+    layout = request.GET.get('layout', 'grid') # Changed default to grid
+    sort_by = request.GET.get('sort', 'status') # Changed default to status
 
     # Get the cards for this set
     cards = Flashcard.objects.filter(alg_set=alg_set)
 
+    # New sorting logic
     if sort_by == 'name':
         cards = cards.order_by('name') # Sorts alphabetically A-Z
+    elif sort_by == 'status':
+        # sorts by status (1, 2, 3) then by name
+        cards = cards.order_by('status', 'name')
     else:
-        cards = cards.order_by('-created_at') # Sorts by newest first
+        cards = cards.order_by('-created_at')
 
     return render(request, 'education/set_detail.html', {
         'alg_set': alg_set,
@@ -31,6 +36,27 @@ def set_detail(request, pk):
         'layout': layout,
         'current_sort': sort_by
     })
+
+
+# Alg flag (Learnt, Unlearnt, Learning)
+def toggle_status(request, pk):
+    if request.method == 'POST':
+        card = get_object_or_404(Flashcard, pk=pk)
+
+        if card.status == 2:
+            card.status = 1
+        elif card.status == 1:
+            card.status = 3
+        else:
+            card.status = 2
+
+        card.save()
+
+        # Sends the new data back to the browser without refreshing
+        return JsonResponse({
+            'new_status': card.status,
+            'status_name': card.get_status_display()
+        })
 
 
 def card_detail(request, pk):
