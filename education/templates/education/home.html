@@ -1,31 +1,28 @@
 {% extends 'education/base.html' %}
-{% block title %}My Flashcards{% endblock %}
+{% block title %}Select Algorithm Set{% endblock %}
 
 {% block content %}
-    <h2>Algorithm Sets</h2>
-    <div style="display: flex; gap: 10px; margin-bottom: 30px;">
-        {% for set in alg_sets %}
-            <!-- a button for each group -->
-            <a href="{% url 'set_detail' set.pk %}" style="padding: 10px; background: #3498db; color: white;
-             text-decoration: none; border-radius: 5px;">{{ set.name }}</a>
-        {% endfor %}
-    </div>
+    <h1 style="text-align: center;">Choose an Algorithm Set</h1>
 
-    <h2>All Algorithms</h2>
-    <ul>
-        {% for card in cards %}
-            <li>
-                <!-- image display on home page -->
-                {% if card.image %}
-                    <img src="{{ card.image.url }}" alt="Cube Case" style="width: 100px; height: 100px;
-                     object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
-                {% endif %}
-                <br>
-                <strong>{{ card.alg_set.name }}:</strong> {{ card.question }}
-                <a href="{% url 'card_detail' card.pk %}">(View Detail)</a>
-            </li>
-        {% empty %}
-            <li>No algs yet. Add some!</li>
+    <div class="group-grid">
+        {% for set in alg_sets %}
+            <a href="{% url 'set_detail' set.pk %}" class="group-card">
+                <div class="group-image">
+                    {% if set.image %}
+                        <img src="{{ set.image.url }}" alt="{{ set.name }}" style="width:100%;
+                         height:100%; object-fit:cover;">
+                    {% else %}
+                        🧊 <!-- Default image if they don't upload one -->
+                    {% endif %}
+                </div>
+                <div class="group-title">{{ set.name }}</div>
+            </a>
         {% endfor %}
-    </ul>
+
+        <!-- The Add Group Button -->
+        <a href="{% url 'add_set' %}" class="group-card add-group-card">
+            <span style="font-size: 3rem; color: #888;">+</span>
+            <div class="group-title" style="color: #888;">Add Group</div>
+        </a>
+    </div>
 {% endblock %}

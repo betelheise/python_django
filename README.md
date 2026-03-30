@@ -10,8 +10,8 @@ A Django-based educational web application for cubers to track and learn algorit
 - [x] **Image Integration**: Add support for uploading and displaying cube case images for each algorithm
 - [x] **Algorithm Sets (Grouping)**: Implement categories to group algorithms by type (e.g., CLL, EG-1, Square-1 CSP)
 - [x] **Set Filtering**: Allow users to filter the homepage view by specific algorithm sets
+- [x] Add group selection screen
 ## Upcoming Features (TBD)
-- [ ] Add group selection screen
 - [ ] Add sort by name feature inside each group
 - [ ] Add learnt alg//learning alg/No flag flags
 - [ ] Add scramble for each alg

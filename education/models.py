@@ -4,6 +4,8 @@ class AlgSet(models.Model):
     name = models.CharField(max_length=100) # e.g. "CLL"
     description = models.TextField(blank=True, null=True)
 
+    image = models.ImageField(upload_to='set_images/', blank=True, null=True)
+
     def __str__(self):
         return self.name
 

@@ -1,14 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Flashcard, AlgSet
-from .forms import FlashcardForm
+from .forms import FlashcardForm, AlgSetForm
+
 
 def home(request):
-    # Fetch all algorithm sets to display on the homepage
+    # Only fetch the groups now, I don't want all cards on the home page anymore
     alg_sets = AlgSet.objects.all()
-    # Fetch all cards from the database
-    cards = Flashcard.objects.all()
-    # Send them to the template
-    return render(request, 'education/home.html', {'alg_sets': alg_sets, 'cards': cards})
+    return render(request, 'education/home.html', {'alg_sets': alg_sets})
 
 def set_detail(request, pk):
     # Get the specific group (e.g., EG-1)
@@ -50,3 +48,14 @@ def edit_card(request, pk):
         form = FlashcardForm(instance=card)
 
     return render(request, 'education/edit_card.html', {'form': form, 'card': card})
+
+def add_set(request):
+    if request.method == 'POST':
+        form = AlgSetForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = AlgSetForm()
+
+    return render(request, 'education/add_set.html', {'form': form})
