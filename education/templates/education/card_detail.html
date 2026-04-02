@@ -27,5 +27,5 @@
      #ddd; text-decoration: none; color: black; border: 1px solid #999;">Edit Algorithm</a>
 
     <br><br>
-    <a href="{% url 'home' %}">&larr; Back to all algorithms</a>
+    <a href="{% url 'set_detail' card.alg_set.pk %}">&larr; Back to {{ card.alg_set.name }}} group</a>
 {% endblock %}

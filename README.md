@@ -1,16 +1,24 @@
-# Speedcube Algorithm Trainer
+# Speedcube Algorithm trainer (Django Project)
+Author: Novikov Stanislav. MIPT 5th grade (1st year Master). Group: "М02-501"
 
-A Django-based educational web application for cubers to track and learn algorithm sets
+## Project Description
+A web application designed for speedcubers to track, learn and manage algorithm sets (e.g., CLL, EG-1, Square-1 CSP).
 
-## Features (Done)
-- [x] Basic CRUD functionality (Create, Read, Update)
-- [x] Educational theme (Speedcubing algorithms)
-- [x] Base templates with block inheritance
-- [x] Form validation and error messages
-- [x] **Image Integration**: Add support for uploading and displaying cube case images for each algorithm
-- [x] **Algorithm Sets (Grouping)**: Implement categories to group algorithms by type (e.g., CLL, EG-1, Square-1 CSP)
-- [x] **Set Filtering**: Allow users to filter the homepage view by specific algorithm sets
-- [x] Add group selection screen
-- [x] Add scramble for each alg
-- [x] Add sort by name feature inside each group
-- [x] Add learnt alg//learning alg/No flag flags
+## Features Included
+- Responsive grid and list layout for algorithm sets
+- User uploaded images for better (personified) case recognition
+- Sorting by name, date and learning status
+- Ability to add user's own algorithms or cases, which can be put into existing or custom group
+
+## How to run locally
+
+1) Clone the repository
+2) Create and activate virtual environment (python -m venv venv && source venv/bin/activate)
+3) Install required libraries (pip install django Pillow)
+4) To run use this command in order:
+
+- python manage.py migrate
+- python manage.py runserver
+
+5) Open address, which pop-ups in terminal, in your browser
+
