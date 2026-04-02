@@ -1,7 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Flashcard, AlgSet
 from .forms import FlashcardForm, AlgSetForm
-from django.http import JsonResponse
 
 
 def home(request):
@@ -57,6 +57,7 @@ def toggle_status(request, pk):
             'new_status': card.status,
             'status_name': card.get_status_display()
         })
+    return JsonResponse({'error': 'Invalid request'})
 
 
 def card_detail(request, pk):

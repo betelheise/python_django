@@ -7,7 +7,7 @@ class AlgSet(models.Model):
     image = models.ImageField(upload_to='set_images/', blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Flashcard(models.Model):
     status = models.IntegerField(
@@ -23,5 +23,4 @@ class Flashcard(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
-
+        return str(self.name)

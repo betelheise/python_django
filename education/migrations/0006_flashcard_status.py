@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='flashcard',
             name='status',
-            field=models.IntegerField(choices=[(1, 'Learning'), (2, 'Unlearnt'), (3, 'Learnt')], default=2),
+            field=models.IntegerField(choices=[
+                (1, 'Learning'), (2, 'Unlearnt'), (3, 'Learnt')], default=2),
         ),
     ]
